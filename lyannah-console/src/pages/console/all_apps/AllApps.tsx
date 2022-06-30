@@ -1,15 +1,39 @@
 import { BoxPadding } from "../../general_components/BoxPadding";
 import { Button } from "../../general_components/button";
 import { AppCard } from "./AppCard";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { AllAppsContext } from "../../../contexts/all_apps/all_apps";
 import { Form } from "../../general_components/Form";
 import { Overlay } from "../../general_components/create_new_app/Overlay";
 
 export const AllApps = () => {
+  const allApps = [
+    {
+      id: Math.floor(Math.random() * 100),
+      name: "Qollect",
+      lastModified: "Last Modified",
+    },
+    {
+      id: Math.floor(Math.random() * 100),
+      name: "Qollect",
+      lastModified: "Last Modified",
+    },
+    {
+      id: Math.floor(Math.random() * 100),
+      name: "Qollect",
+      lastModified: "Last Modified",
+    },
+    {
+      id: Math.floor(Math.random() * 100),
+      name: "Qollect",
+      lastModified: "Last Modified",
+    },
+  ];
   const allAppsContext = useContext(AllAppsContext);
   const buttonHandler = () => {
+    console.log(allAppsContext.isModalOpen);
     allAppsContext.setIsModalOpen(true);
+    console.log(allAppsContext.isModalOpen);
   };
   const closeModal = () => {
     allAppsContext.setIsModalOpen(false);
@@ -27,6 +51,7 @@ export const AllApps = () => {
               <Button title="Create App" onClick={closeModal} />
             </>
           }
+          onCloseModal={closeModal}
         />
       ) : null}
       <BoxPadding>
@@ -36,8 +61,9 @@ export const AllApps = () => {
             <Button title="New App" width="contain" onClick={buttonHandler} />
           </div>
           <div className="md:flex gap-8 ">
-            <AppCard onClick={() => {}} />
-            <AppCard />
+            {allApps.map((e) => (
+              <AppCard dependencies={e.id} />
+            ))}
           </div>
         </div>
       </BoxPadding>
